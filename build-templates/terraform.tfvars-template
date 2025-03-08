@@ -46,3 +46,6 @@ os_image_publisher = "Canonical"
 os_image_offer     = "0001-com-ubuntu-server-noble"
 os_image_sku       = "24_04-lts"
 os_image_version   = "latest"
+
+# Subscription ID
+subscription_id = "your-subdcription-id"

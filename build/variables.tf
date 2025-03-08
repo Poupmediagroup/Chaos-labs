@@ -115,3 +115,8 @@ variable "os_image_version" {
   type        = string
   default     = "latest"
 }
+
+variable "subscription_id" {
+  description = "Azure subscription ID "
+  type        = string
+}
