@@ -1,0 +1,34 @@
+# General
+prefix      = "myapp"
+environment = "dev"
+location    = "eastus"
+tags = {
+  "Owner"       = "DevOps Team"
+  "Environment" = "Development"
+  "Project"     = "Infrastructure"
+}
+
+# Network
+vnet_address_space     = "10.0.0.0/16"
+subnet_address_prefix  = "10.0.1.0/24"
+ssh_source_address_prefix = "YOUR_IP_ADDRESS/32"  # Restrict to your IP for better security
+
+# VM
+vm_size        = "Standard_DS2_v2"
+admin_username = "azureuser"
+ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC..."  # Replace with your actual SSH public key
+
+# OS Disk
+os_disk_storage_account_type = "Premium_LRS"
+os_disk_size_gb              = 30
+
+# Data Disk
+data_disk_required            = true
+data_disk_storage_account_type = "Premium_LRS"
+data_disk_size_gb              = 100
+
+# OS Image
+os_image_publisher = "Canonical"
+os_image_offer     = "0001-com-ubuntu-server-noble"
+os_image_sku       = "24_04-lts"
+os_image_version   = "latest"
