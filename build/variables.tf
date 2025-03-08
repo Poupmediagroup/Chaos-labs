@@ -33,10 +33,10 @@ variable "subnet_address_prefix" {
   default     = "10.0.1.0/24"
 }
 
-variable "ssh_source_address_prefix" {
-  description = "Source IP range for SSH access"
-  type        = string
-  default     = "*"
+variable "ssh_source_address_prefixes" {
+  description = "List of source IP ranges for SSH access"
+  type        = list(string)
+  default     = ["*"]
 }
 
 # VM Variables
@@ -51,9 +51,12 @@ variable "admin_username" {
   type        = string
 }
 
-variable "ssh_public_key" {
-  description = "SSH public key for VM authentication"
-  type        = string
+variable "developer_ssh_keys" {
+  description = "List of SSH public keys for VM authentication"
+  type        = list(object({
+    username   = string
+    public_key = string
+  }))
 }
 
 # OS Disk Variables

@@ -39,7 +39,7 @@ resource "azurerm_network_security_rule" "ssh" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "22"
-  source_address_prefix       = var.ssh_source_address_prefix
+  source_address_prefixes     = var.ssh_source_address_prefixes
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.rg.name
   network_security_group_name = azurerm_network_security_group.nsg.name
@@ -87,9 +87,12 @@ resource "azurerm_linux_virtual_machine" "vm" {
     azurerm_network_interface.nic.id,
   ]
 
-  admin_ssh_key {
-    username   = var.admin_username
-    public_key = var.ssh_public_key
+  dynamic "admin_ssh_key" {
+    for_each = var.developer_ssh_keys
+    content {
+      username   = admin_ssh_key.value.username
+      public_key = admin_ssh_key.value.public_key
+    }
   }
 
   os_disk {
