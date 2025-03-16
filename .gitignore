@@ -1,6 +1,9 @@
 # Local .terraform directories
 **/.terraform/*
 
+# Excluding mac meta data
+.DS_Store
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
