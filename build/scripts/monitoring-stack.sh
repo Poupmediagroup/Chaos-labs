@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Host Ip address
+HOST=$(curl -s ifconfig.me)
+
 # Exit immediately if a command exits with a non-zero status
 set -e
 
@@ -7,7 +10,7 @@ echo "Setting up the complete monitoring stack: Node Exporter, Prometheus, and G
 echo "-----------------------------------------------------------------------"
 
 # Update package lists
-echo "Updating package lists..."
+echo "Updating package lists...
 sudo apt-get update
 
 # Install Node Exporter
@@ -17,8 +20,8 @@ sudo systemctl enable prometheus-node-exporter
 sudo systemctl start prometheus-node-exporter
 echo "Node Exporter installed and started."
 echo "Testing if metrics are being exported on port 9100"
-PUBLIC_IP=$(curl -s ifconfig.me)
-curl --fail http://${PUBLIC_IP}:9100/metrics
+
+curl --fail http://${HOST}:9100/metrics
 if [ $? -ne 0 ]; then
         echo "Error: failed to validate if metrics are being are being exported on port 9100. Check networking configurations or if node exporter service is running"
 fi
@@ -53,6 +56,8 @@ sudo systemctl restart prometheus
 sudo systemctl enable prometheus
 echo "Prometheus configured and restarted."
 
+#################################################
+# Grafana setup
 # Install Grafana
 echo "Installing Grafana..."
 sudo apt-get install -y apt-transport-https software-properties-common wget
@@ -65,6 +70,69 @@ sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
 echo "Grafana installed and started."
 
+echo "Creating a Grafana service account...."
+response=$(curl -s -X POST http://${HOST}:3000/api/serviceaccounts \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Basic $(echo -n 'admin:chaos' | base64)" \
+     -d '{
+       "name": "test-service-account",
+       "role": "Viewer",
+       "isDisabled": false
+     }')
+
+     service_account_name=$(echo $response | jq -r '.name')
+     id=$(echo $response | jq -r '.id')
+
+echo "Created service account: $service_account_name"
+echo "Service account id is: $id"
+
+
+
+echo "Creating service account Token...."
+token_response=$(curl -X POST http://${HOST}:3000/api/serviceaccounts/${id}/tokens \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Basic $(echo -n 'admin:chaos' | base64)" \
+     -d "{
+       \"name\": \"${service_account_name}\",
+       \"secondsToLive\": 0
+     }")
+
+     token=$(echo $token_response | jq -r '.key')
+
+echo "Created token: $token"
+    
+
+
+# Add Node Exporter Data Source
+curl -X POST "http://${HOST}/api/datasources" \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer $api_key" \
+     -d '{
+       "name": "Node Exporter",
+       "type": "prometheus",
+       "access": "proxy",
+       "url": "http://'${HOST}':9090",
+       "isDefault": true
+     }'
+
+# Import Node Exporter Dashboard
+curl -X POST ${HOST}/api/dashboards/import \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer $api_key" \
+     -d '{
+       "dashboard": {
+         "id": 1860,
+         "uid": "node-exporter",
+         "title": "Node Exporter Full",
+         "overwrite": true
+       },
+       "inputs": [],
+       "folderId": 0,
+       "overwrite": true
+     }'
+
+echo "✅ Node Exporter Data Source and Dashboard Imported!"
+  
 # Display setup information
 echo "-----------------------------------------------------------------------"
 echo "Your monitoring stack has been installed!"

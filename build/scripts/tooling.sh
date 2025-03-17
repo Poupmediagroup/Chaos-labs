@@ -15,6 +15,12 @@ if ! command -v pv &> /dev/null; then
     sudo apt update && sudo apt install pv
 fi
 
+#Checking if jq is installed
+if ! command -v jq &> /dev/null; then 
+    echo "jq is not installed. Installing now..."
+    sudo apt install jq
+fi
+
 ################################################
 # Node.js setup
 # Install the latest LTS version of Node.js
