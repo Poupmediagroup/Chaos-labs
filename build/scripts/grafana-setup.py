@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 import requests
-import socket
 import base64
 
 username = 'admin'
-password = 'admin'
+password = 'chaos'
 
 # Setting credentials
 grafana_creds = f'{username}:{password}'
@@ -33,5 +32,12 @@ service_acct_data = {
 
 service_acct_response = requests.post(url,headers=service_acct_headers,json=service_acct_data)
 
+data = service_acct_response.json()
+
+id = data.get('id')
+name = data.get('name')
 print(f'Status Code: {service_acct_response.status_code}')
 print(f'Response JSON: {service_acct_response.json()}')
+
+print(f'Service account ID: {id}')
+print(f'Service account Name: {name}')
