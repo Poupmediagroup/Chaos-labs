@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-import requests
-import base64
-
 username = 'admin'
 password = 'chaos'
 
@@ -41,3 +38,23 @@ print(f'Response JSON: {service_acct_response.json()}')
 
 print(f'Service account ID: {id}')
 print(f'Service account Name: {name}')
+
+
+# Create Service account token
+
+url = f'http://{host_ip}:3000/api/serviceaccounts/{id}/tokens'
+service_acct_headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Basic {encoded_grafana_creds}',
+ }
+service_acct_token = {
+        'name': 'test-service-account',
+        'secondsToLive': 0
+ }
+
+service_acct_token_response = requests.post(url,headers=service_acct_headers,json=service_acct_token)
+
+token_data = service_acct_token_response.json()
+key = token_data.get('key')
+print(f'Status Code: {service_acct_token_response.status_code}')
+print(f'Token is: {key}')
