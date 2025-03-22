@@ -136,7 +136,7 @@ dashboard_body = {
 dashboard_response = requests.post(
     dashboard_url, headers=dashboard_headers, json=dashboard_body)
 
-# Error handaling for dashboard creation
+# Error handling for dashboard creation
 if dashboard_response.status_code == 200:
     dashboard_data = dashboard_response.json()
     dashboard_title = dashboard_data.get('slug')
