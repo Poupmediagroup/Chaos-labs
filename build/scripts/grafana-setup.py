@@ -141,4 +141,4 @@ if dashboard_response.status_code == 200:
     dashboard_title = dashboard_data.get('slug')
     print(f'Successfully created dashboard: {dashboard_title}')
 else:
-    print(f'An error occured: {dashboard_response.status_code}')
+    print(f'An error occurred: {dashboard_response.status_code}')
