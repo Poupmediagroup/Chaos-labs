@@ -132,13 +132,13 @@ dashboard_body = {
     'overwrite': False
 }
 
-
 dashboard_response = requests.post(
     dashboard_url, headers=dashboard_headers, json=dashboard_body)
 
-dashboard_data = dashboard_response.json()
-dashboard_title = dashboard_data.get('slug')
-
-print(f'Status code for dashboard setup: {dashboard_response.status_code}')
-print(f'Dashboard response: {dashboard_data}')
-print(f'Successfully created dashboard: {dashboard_title}')
+# Error handling for dashboard creation
+if dashboard_response.status_code == 200:
+    dashboard_data = dashboard_response.json()
+    dashboard_title = dashboard_data.get('slug')
+    print(f'Successfully created dashboard: {dashboard_title}')
+else:
+    print(f'An error occured: {dashboard_response.status_code}')
