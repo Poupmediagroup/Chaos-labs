@@ -20,7 +20,6 @@ sudo apt install -y python3
 python3 --version
 sudo apt install -y python3-pip
 pip3 --version
-pip install requests
 sudo apt install python3-requests
 
 ################################################
