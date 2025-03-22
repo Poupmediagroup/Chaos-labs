@@ -83,16 +83,15 @@ data_source_body = {
     'basicAuth': False
 }
 
-data_source_response = requests.post(
-    data_source_url, headers=data_source_headers, json=data_source_body)
+add_data_source_response = requests.post(
+    add_data_source_url, headers=add_data_source_headers, json=add_data_source_body)
 
-type_data = data_source_response.json()
-
-name = type_data.get('name')
-
-print(f'Response is: {type_data}')
-print(f'Status Code for datasource import: {data_source_response.status_code}')
-print(f'Data Source: {name} has been added')
+if add_data_source_response.status_code == 200:
+    data_source_json = add_data_source_response.json()
+    data_source_name = data_source_json.get('name')
+    print(f'Successfully added: {name} as a Datasource')
+else:
+    print(f'An error has occured: {add_data_source_response.status_code}')
 
 # Import Node Exporter Dashboard
 
