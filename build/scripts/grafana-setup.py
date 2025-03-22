@@ -5,7 +5,7 @@ import base64
 import json
 
 username = 'admin'
-password = 'chaos'
+password = 'admin'
 
 # Setting credentials
 grafana_creds = f'{username}:{password}'
