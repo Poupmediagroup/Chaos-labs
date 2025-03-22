@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Host Ip address
-HOST=$(curl -s ifconfig.me)
-
 # Exit immediately if a command exits with a non-zero status
 set -e
 
@@ -10,7 +7,7 @@ echo "Setting up the complete monitoring stack: Node Exporter, Prometheus, and G
 echo "-----------------------------------------------------------------------"
 
 # Update package lists
-echo "Updating package lists...
+echo "Updating package lists..."
 sudo apt-get update
 
 # Install Node Exporter
@@ -20,8 +17,8 @@ sudo systemctl enable prometheus-node-exporter
 sudo systemctl start prometheus-node-exporter
 echo "Node Exporter installed and started."
 echo "Testing if metrics are being exported on port 9100"
-
-curl --fail http://${HOST}:9100/metrics
+PUBLIC_IP=$(curl -s ifconfig.me)
+curl --fail http://${PUBLIC_IP}:9100/metrics
 if [ $? -ne 0 ]; then
         echo "Error: failed to validate if metrics are being are being exported on port 9100. Check networking configurations or if node exporter service is running"
 fi
@@ -56,8 +53,6 @@ sudo systemctl restart prometheus
 sudo systemctl enable prometheus
 echo "Prometheus configured and restarted."
 
-#################################################
-# Grafana setup
 # Install Grafana
 echo "Installing Grafana..."
 sudo apt-get install -y apt-transport-https software-properties-common wget
@@ -70,10 +65,6 @@ sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
 echo "Grafana installed and started."
 
-
-
-echo "✅ Node Exporter Data Source and Dashboard Imported!"
-  
 # Display setup information
 echo "-----------------------------------------------------------------------"
 echo "Your monitoring stack has been installed!"
