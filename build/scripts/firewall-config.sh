@@ -1,4 +1,5 @@
 #!/bin/bash
+PUBLIC_IP=$(curl -s ifconfig.me)
 
 echo "Configuring firewall for services: Grafana, Node Exporter, Prometheus"
 
@@ -21,6 +22,9 @@ sudo ufw allow 9090/tcp
 
 echo "Opening Port 9100 for Node Exporter"
 sudo ufw allow 9100/tcp
+
+echo "Allowing host ip access to all ports"
+sudo ufw allow from ${PUBLIC_IP}
 
 # Reload UFW to apply changes
 echo "Reloading firewall rules..."
