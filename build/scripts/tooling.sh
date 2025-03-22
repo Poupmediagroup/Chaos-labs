@@ -9,7 +9,7 @@ set -e
 # Print commands before executing them
 set -x
 
-#Checking if Pipe viewer is installed
+# Checking if Pipe viewer is installed
 if ! command -v pv &> /dev/null; then 
     echo "pv is not installed. Installing now..."
     sudo apt update && sudo apt install pv
