@@ -70,66 +70,7 @@ sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
 echo "Grafana installed and started."
 
-echo "Creating a Grafana service account...."
-response=$(curl -s -X POST http://${HOST}:3000/api/serviceaccounts \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Basic $(echo -n 'admin:chaos' | base64)" \
-     -d '{
-       "name": "test-service-account",
-       "role": "Viewer",
-       "isDisabled": false
-     }')
 
-     service_account_name=$(echo $response | jq -r '.name')
-     id=$(echo $response | jq -r '.id')
-
-echo "Created service account: $service_account_name"
-echo "Service account id is: $id"
-
-
-
-echo "Creating service account Token...."
-token_response=$(curl -X POST http://${HOST}:3000/api/serviceaccounts/${id}/tokens \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Basic $(echo -n 'admin:chaos' | base64)" \
-     -d "{
-       \"name\": \"${service_account_name}\",
-       \"secondsToLive\": 0
-     }")
-
-     token=$(echo $token_response | jq -r '.key')
-
-echo "Created token: $token"
-    
-
-
-# Add Node Exporter Data Source
-curl -X POST "http://${HOST}/api/datasources" \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Bearer $api_key" \
-     -d '{
-       "name": "Node Exporter",
-       "type": "prometheus",
-       "access": "proxy",
-       "url": "http://'${HOST}':9090",
-       "isDefault": true
-     }'
-
-# Import Node Exporter Dashboard
-curl -X POST ${HOST}/api/dashboards/import \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Bearer $api_key" \
-     -d '{
-       "dashboard": {
-         "id": 1860,
-         "uid": "node-exporter",
-         "title": "Node Exporter Full",
-         "overwrite": true
-       },
-       "inputs": [],
-       "folderId": 0,
-       "overwrite": true
-     }'
 
 echo "✅ Node Exporter Data Source and Dashboard Imported!"
   
