@@ -69,13 +69,14 @@ print(f'Token is: {key}')
 
 
 # Add Node Exporter Data Source
+add_data_source_url = f'http://{host_ip}:3000/api/datasources'
 
-data_source_url = f'http://{host_ip}:3000/api/datasources'
-data_source_headers = {
+add_data_source_headers = {
     'Content-Type': 'application/json',
     'Authorization': f'Bearer {key}',
 }
-data_source_body = {
+
+add_data_source_body = {
     'name': 'Prometheus',
     'type': 'prometheus',
     'url': f'http://{host_ip}:9090',
@@ -95,7 +96,7 @@ else:
 
 # Import Node Exporter Dashboard
 
-# Downloading the json definition
+# Downloading the json for the Grafana Dashboard (1860)
 grafana_dashboard_url = "https://grafana.com/api/dashboards/1860/revisions/latest/download"
 grafana_dashboard_response = requests.get(grafana_dashboard_url)
 
@@ -109,7 +110,7 @@ else:
     print(grafana_dashboard_response.text)
     exit(1)
 
-# Import Dashboard
+# Import the downloaded dashboard (1860)
 with open('dashboard_1860.json', 'r') as file:
     dashboard_1860 = json.load(file)
 
@@ -131,6 +132,7 @@ dashboard_body = {
     'overwrite': False
 }
 
+
 dashboard_response = requests.post(
     dashboard_url, headers=dashboard_headers, json=dashboard_body)
 
@@ -140,4 +142,4 @@ if dashboard_response.status_code == 200:
     dashboard_title = dashboard_data.get('slug')
     print(f'Successfully created dashboard: {dashboard_title}')
 else:
-    print(f'An error occurred: {dashboard_response.status_code}')
+    print(f'An error occured: {dashboard_response.status_code}')
