@@ -53,7 +53,7 @@ variable "admin_username" {
 
 variable "developer_ssh_keys" {
   description = "List of SSH public keys for VM authentication"
-  type        = list(object({
+  type = list(object({
     username   = string
     public_key = string
   }))

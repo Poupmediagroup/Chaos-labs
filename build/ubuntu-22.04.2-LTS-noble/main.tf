@@ -45,6 +45,21 @@ resource "azurerm_network_security_rule" "ssh" {
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
 
+# NSG Rule - Allow Prometheus to collect logs from itself & auto grafana api calls
+resource "azurerm_network_security_rule" "Prometheus" {
+  name                        = "Allow-Prometheus"
+  priority                    = 1002
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = resource.azurerm_public_ip.pip.ip_address
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg.name
+  network_security_group_name = azurerm_network_security_group.nsg.name
+}
+
 # Public IP
 resource "azurerm_public_ip" "pip" {
   name                = "${var.prefix}-${var.environment}-pip"
