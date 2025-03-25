@@ -43,8 +43,14 @@ build {
       "echo 'Cloning repo'"
       "git clone https://github.com/Poupmediagroup/Chaos-labs.git"
       "echo 'Starting setup scripts'"
+      "echo 'Navigating to scripts directory'"
       "cd Chaos-labs/build/scripts/"
-      "chmod +x ./tooling.sh"
+      "echo 'Setting permissions on monitoring stack, grafana-setup and tooling.sh'"
+      "chmod +x ./tooling.sh ./monitoring-stack.sh ./grafana-setup.py"
+      "echo 'executing scripts now'"
+      "./tooling.sh && ./monitoring-stack.sh"
+
+
     ]
   }
 
