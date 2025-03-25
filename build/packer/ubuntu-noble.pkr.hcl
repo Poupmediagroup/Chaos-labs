@@ -40,14 +40,14 @@ build {
       "sudo apt-get update",
       "sudo apt-get upgrade -y",
       "echo 'Installation completed successfully!'",
-      "echo 'Cloning repo'"
-      "git clone https://github.com/Poupmediagroup/Chaos-labs.git"
-      "echo 'Starting setup scripts'"
-      "echo 'Navigating to scripts directory'"
-      "cd Chaos-labs/build/scripts/"
-      "echo 'Setting permissions on monitoring stack, grafana-setup and tooling.sh'"
-      "chmod +x ./tooling.sh ./monitoring-stack.sh ./grafana-setup.py"
-      "echo 'executing scripts now'"
+      "echo 'Cloning repo'",
+      "git clone https://github.com/Poupmediagroup/Chaos-labs.git",
+      "echo 'Starting setup scripts'",
+      "echo 'Navigating to scripts directory'",
+      "cd Chaos-labs/build/scripts/",
+      "echo 'Setting permissions on monitoring stack, grafana-setup and tooling.sh'",
+      "chmod +x ./tooling.sh ./monitoring-stack.sh ./grafana-setup.py",
+      "echo 'executing scripts now'",
       "./tooling.sh && ./monitoring-stack.sh"
 
 
