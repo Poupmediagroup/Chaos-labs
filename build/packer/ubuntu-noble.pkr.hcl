@@ -39,19 +39,18 @@ build {
       "echo 'Updating system packages'",
       "sudo apt-get update",
       "sudo apt-get upgrade -y",
-      "echo 'Installation completed successfully!'"
+      "echo 'Installation completed successfully!'",
+      "echo 'Cloning repo'"
+      "git clone https://github.com/Poupmediagroup/Chaos-labs.git"
+      "echo 'Starting setup scripts'"
+      "cd Chaos-labs/build/scripts/"
+      "chmod +x ./tooling.sh"
     ]
-  }
-/*
-# Copy files to the VM (optional)
-  provisioner "file" {
-    source      = "./files/"
-    destination = "/tmp/"
   }
 
   # Run another shell script if needed (optional)
   provisioner "shell" {
-    script = "./scripts/setup.sh"
+    script = "./"
   }
 
   # Clean up the VM before creating the image
@@ -64,7 +63,5 @@ build {
     ]
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
   }
-  
-  */
   
 }
