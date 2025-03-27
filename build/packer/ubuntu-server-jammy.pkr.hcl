@@ -53,12 +53,7 @@ build {
 
     ]
   }
-
-  # Run another shell script if needed (optional)
-  provisioner "shell" {
-    script = "./"
-  }
-
+  
   # Clean up the VM before creating the image
   provisioner "shell" {
     inline = [
