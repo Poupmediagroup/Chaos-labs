@@ -60,4 +60,4 @@ docker compose version || echo "Docker Compose plugin not installed properly"
 echo "Installation complete! You may need to log out and back in for the docker group changes to take effect."
 echo "After logging back in, you can run Docker commands without sudo."
 
-sudo reboot
+sudo reboot -y 
