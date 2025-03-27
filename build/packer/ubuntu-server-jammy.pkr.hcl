@@ -8,7 +8,7 @@ packer {
 }
 
 
-source "azure-dtl" "ubuntu-noble" {
+source "azure-dtl" "ubuntu-jammy" {
   subscription_id                   = var.subscription_id
   use_azure_cli_auth                = true
   lab_name                          = var.lab_name
@@ -31,7 +31,7 @@ source "azure-dtl" "ubuntu-noble" {
 }
 
 build {
-  sources = ["source.azure-dtl.ubuntu-noble"]
+  sources = ["source.azure-dtl.ubuntu-jammy"]
 
   # Provisioning with shell script
   provisioner "shell" {
@@ -63,6 +63,16 @@ build {
       "sudo waagent -force -deprovision+user && export HISTSIZE=0"
     ]
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
+  }
+  
+  post-processors {
+    post-processor "shell-local" {
+      inline = [
+        "echo '=== Packer Build Outputs ==='",
+        "echo \"Image Name: ${var.managed_image_name}\"",
+        "echo \"Resource Group: ${var.managed_image_resource_group_name}\""
+      ]
+    }
   }
   
 }

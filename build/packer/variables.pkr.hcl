@@ -5,7 +5,7 @@ variable "subscription_id" {
 
 variable "lab_name" {
   type    = string
-  default = "golden-grafana"
+  default = "Packer-lab"
 }
 
 variable "lab_resource_group" {
@@ -15,7 +15,7 @@ variable "lab_resource_group" {
 
 variable "managed_image_name" {
   type    = string
-  default = "golden-grafana-1"
+  default = "golden-grafana"
 }
 
 variable "managed_image_resource_group_name" {
@@ -59,17 +59,17 @@ variable "vm_size" {
 
 variable "ssh_username" {
   type    = string
-  default = ""
+  default = "azureuser"
 }
 
 variable "ssh_password" {
   type    = string
-  default = ""
+  default = "packer123"
 }
 
 variable "ssh_timeout" {
   type    = string
-  default = "20m"
+  default = "10m"
 }
 
 variable "os_disk_size_gb" {
@@ -79,10 +79,10 @@ variable "os_disk_size_gb" {
 
 variable "lab_virtual_network_name" {
   type    = string
-  default = "Dtlgolden-grafana"
+  default = "DtlPacker-lab"
 }
 
 variable "vm_name" {
   type    = string
-  default = "golden-grafana-1"
+  default = "golden-grafana-image"
 }
