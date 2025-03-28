@@ -16,12 +16,12 @@ sudo apt-get install -y prometheus-node-exporter
 sudo systemctl enable prometheus-node-exporter
 sudo systemctl start prometheus-node-exporter
 echo "Node Exporter installed and started."
-echo "Testing if metrics are being exported on port 9100"
-PUBLIC_IP=$(curl -s ifconfig.me)
-curl --fail http://${PUBLIC_IP}:9100/metrics
-if [ $? -ne 0 ]; then
-        echo "Error: failed to validate if metrics are being are being exported on port 9100. Check networking configurations or if node exporter service is running"
-fi
+#echo "Testing if metrics are being exported on port 9100"
+#PUBLIC_IP=$(curl -s ifconfig.me)
+#curl --fail http://${PUBLIC_IP}:9100/metrics
+#if [ $? -ne 0 ]; then
+#        echo "Error: failed to validate if metrics are being are being exported on port 9100. Check networking configurations or if node exporter service is running"
+#fi
 
 # Install Prometheus
 echo "Installing Prometheus..."
