@@ -1,7 +1,7 @@
 variable "subscription_id" {
   type    = string
-  default = ""
-} 
+  default = "42321656-24c7-449a-85cb-e5aeb9b9659b"
+}
 
 variable "lab_name" {
   type    = string
@@ -20,7 +20,7 @@ variable "managed_image_name" {
 
 variable "managed_image_resource_group_name" {
   type    = string
-  default = "RG-Tai-lab"
+  default = "RG-Packer-images"
 }
 
 variable "os_type" {
@@ -52,19 +52,19 @@ variable "vm_size" {
   type    = string
   default = "Standard_DS2_v2"
 }
- variable "communicator" {
+variable "communicator" {
   type    = string
   default = "ssh"
 }
 
 variable "ssh_username" {
   type    = string
-  default = "azureuser"
+  default = "azureuser" # Default user for Ubuntu images in Azure
 }
 
-variable "ssh_password" {
+variable "ssh_private_key_file" {
   type    = string
-  default = "packer123"
+  default = "/Users/tai-dev/.ssh/packer_key" # Path to your private key
 }
 
 variable "ssh_timeout" {
@@ -75,14 +75,4 @@ variable "ssh_timeout" {
 variable "os_disk_size_gb" {
   type    = number
   default = 30
-}
-
-variable "lab_virtual_network_name" {
-  type    = string
-  default = "DtlPacker-lab"
-}
-
-variable "vm_name" {
-  type    = string
-  default = "golden-grafana-image"
 }

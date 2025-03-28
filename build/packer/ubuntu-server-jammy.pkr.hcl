@@ -7,31 +7,25 @@ packer {
   }
 }
 
-
-source "azure-dtl" "ubuntu-jammy" {
-  subscription_id                   = var.subscription_id
+# Source: azure-arm builder
+source "azure-arm" "ubuntu-jammy" {
   use_azure_cli_auth                = true
-  lab_name                          = var.lab_name
-  lab_resource_group_name           = var.lab_resource_group
-  managed_image_name                = var.managed_image_name
-  managed_image_resource_group_name = var.managed_image_resource_group_name
-  os_type                           = var.os_type
+  communicator                      = "ssh"
+  location                          = var.location
   image_publisher                   = var.image_publisher
   image_offer                       = var.image_offer
   image_sku                         = var.image_sku
-  location                          = var.location
   vm_size                           = var.vm_size
-  communicator                      = var.communicator
-  ssh_username                      = var.ssh_username
-  ssh_password                      = var.ssh_password
-  ssh_timeout                       = var.ssh_timeout
   os_disk_size_gb                   = var.os_disk_size_gb
-  lab_virtual_network_name          = var.lab_virtual_network_name
-  vm_name                           = var.vm_name
+  ssh_username                      = var.ssh_username
+  ssh_private_key_file              = var.ssh_private_key_file
+  os_type                           = var.os_type
+  managed_image_name                = var.managed_image_name
+  managed_image_resource_group_name = var.managed_image_resource_group_name
 }
 
 build {
-  sources = ["source.azure-dtl.ubuntu-jammy"]
+  sources = ["source.azure-arm.ubuntu-jammy"]
 
   # Provisioning with shell script
   provisioner "shell" {
@@ -49,11 +43,9 @@ build {
       "chmod +x ./tooling.sh ./monitoring-stack.sh ./grafana-setup.py",
       "echo 'executing scripts now'",
       "./tooling.sh && ./monitoring-stack.sh"
-
-
     ]
   }
-  
+
   # Clean up the VM before creating the image
   provisioner "shell" {
     inline = [
@@ -64,7 +56,8 @@ build {
     ]
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
   }
-  
+
+  # Post-processors to show final output
   post-processors {
     post-processor "shell-local" {
       inline = [
@@ -74,5 +67,4 @@ build {
       ]
     }
   }
-  
 }
