@@ -76,8 +76,3 @@ variable "os_disk_size_gb" {
   type    = number
   default = 30
 }
-
-variable "alowed_inbound_ip_address" {
-  type    = string
-  default = [""]
-}

@@ -22,7 +22,6 @@ source "azure-arm" "ubuntu-jammy" {
   os_type                           = var.os_type
   managed_image_name                = var.managed_image_name
   managed_image_resource_group_name = var.managed_image_resource_group_name
-  allowed_inbound_ip_addresses
 }
 
 build {
