@@ -46,17 +46,6 @@ build {
     ]
   }
 
-  # Clean up the VM before creating the image
-  provisioner "shell" {
-    inline = [
-      "echo 'Cleaning up'",
-      "sudo apt-get clean",
-      "sudo rm -rf /var/lib/apt/lists/*",
-      "sudo waagent -force -deprovision+user && export HISTSIZE=0"
-    ]
-    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
-  }
-
   # Post-processors to show final output
   post-processors {
     post-processor "shell-local" {

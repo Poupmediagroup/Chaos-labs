@@ -1,6 +1,6 @@
 variable "subscription_id" {
   type    = string
-  default = "42321656-24c7-449a-85cb-e5aeb9b9659b"
+  default = ""
 }
 
 
