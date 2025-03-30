@@ -1,10 +1,10 @@
-output "admin_username" {
-  description = "The admin username for the virtual machine"
-  value       = "azureuser"
+output "Connection-string" {
+  description = "Connect to the server with:"
+  value       = "${var.admin_username}@${azurerm_public_ip.ip.ip_address}"
 }
 
-output "public_ip_address" {
-  description = "The public IP address assigned to the virtual machine"
-  value       = azurerm_public_ip.ip.ip_address
+output "Grafana" {
+  description = "Grafana URL"
+  value       = "${azurerm_public_ip.ip.ip_address}:3000"
 }
 

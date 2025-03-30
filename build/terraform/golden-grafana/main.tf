@@ -62,14 +62,19 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   # Specify your admin credentials
-  admin_username = "azureuser"
+  admin_username = var.admin_username
   admin_ssh_key {
-    username   = "azureuser"
+    username   = var.admin_username
     public_key = file("/Users/tai-dev/.ssh/packer_key.pub")
   }
 }
 
-# Optional: Network security group
+# Query for my IP address
+data "http" "my_ip" {
+  url = "https://ipinfo.io/ip"
+}
+
+# Allow SSH for my IP
 resource "azurerm_network_security_group" "nsg" {
   name                = "${var.image_name}-nsg"
   location            = var.location
@@ -83,9 +88,36 @@ resource "azurerm_network_security_group" "nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "*"
+    source_address_prefix      = data.http.my_ip.response_body
     destination_address_prefix = "*"
   }
+
+  # Allow Node exporter metrics collection 
+    security_rule {
+        name                       = "Node-Exporter"
+        priority                   = 1002
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = azurerm_public_ip.ip.ip_address
+        destination_address_prefix = "*"
+      }
+
+    # Allow inbound for Grafna
+    security_rule {
+        name                       = "Grafana-inbound"
+        priority                   = 1003
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "3000"
+        source_address_prefix      = data.http.my_ip.response_body
+        destination_address_prefix = "*"
+      }
+
 }
 
 # Associate NSG with network interface
