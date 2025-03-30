@@ -3,18 +3,15 @@ variable "subscription_id" {
   default = ""
 }
 
-
 variable "image_name" {
   type    = string
   default = "golden-grafana"
 }
 
-
 variable "location" {
   type    = string
   default = "East US"
 }
-
 
 variable "managed_image_resource_group" {
   type    = string
@@ -39,4 +36,9 @@ variable "vm_name" {
 variable "size" {
   type    = string
   default = "Standard_DS2_v2"
+}
+
+variable "admin_username" {
+  type    = string
+  default = "azureuser"
 }
