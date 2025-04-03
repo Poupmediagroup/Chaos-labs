@@ -29,8 +29,8 @@ jobs:
 
       - name: Run `packer validate`
         id: validate
-        run: "packer validate ./build/packer/golden-grafana/ubuntu-server-jammy.pkr.hcl"
+        run: "packer validate -var-file=./build/packer/golden-grafana/variables.pkr.hcl ./build/packer/golden-grafana/variables.pkr.hcl"
 
       - name: run `packer build`
         id: build
-        run: "packer build ./build/packer/golden-grafana/ubuntu-server-jammy.pkr.hcl"
+        run: "packer build -var-file=./build/packer/golden-grafana/variables.pkr.hcl ./build/packer/golden-grafana/variables.pkr.hcl"
