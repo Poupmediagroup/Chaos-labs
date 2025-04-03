@@ -27,22 +27,26 @@ source "azure-arm" "ubuntu-jammy" {
 build {
   sources = ["source.azure-arm.ubuntu-jammy"]
 
-  # Provisioning with shell script
+  # Provisioning with shell scripts
+  provisioner "shell" {
+    scripts = [
+      "../../scripts/tooling.sh",
+      "../../scripts/monitoring-stack.sh"
+    ]
+  }
+
+  # Provisioning with shell scripts inline
   provisioner "shell" {
     inline = [
       "echo 'Updating system packages'",
       "sudo apt-get update",
       "sudo apt-get upgrade -y",
-      "echo 'Installation completed successfully!'",
       "echo 'Cloning repo'",
       "git clone https://github.com/Poupmediagroup/Chaos-labs.git",
-      "echo 'Starting setup scripts'",
-      "echo 'Navigating to scripts directory'",
       "cd Chaos-labs/build/scripts/",
-      "echo 'Setting permissions on monitoring stack, grafana-setup and tooling.sh'",
-      "chmod +x ./tooling.sh ./monitoring-stack.sh ./grafana-setup.py",
-      "echo 'executing scripts now'",
-      "./tooling.sh && ./monitoring-stack.sh"
+      "echo 'executing grafana dashboard setup script'",
+      "chmod +x ./grafana-setup.py",
+      "./grafana-setup.py"
     ]
   }
 
