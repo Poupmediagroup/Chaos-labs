@@ -16,12 +16,6 @@ sudo apt-get install -y prometheus-node-exporter
 sudo systemctl enable prometheus-node-exporter
 sudo systemctl start prometheus-node-exporter
 echo "Node Exporter installed and started."
-echo "Testing if metrics are being exported on port 9100"
-PUBLIC_IP=$(curl -s ifconfig.me)
-curl --fail http://${PUBLIC_IP}:9100/metrics
-if [ $? -ne 0 ]; then
-        echo "Error: failed to validate if metrics are being are being exported on port 9100. Check networking configurations or if node exporter service is running"
-fi
 
 # Install Prometheus
 echo "Installing Prometheus..."
@@ -75,9 +69,3 @@ echo " - Prometheus: http://localhost:9090"
 echo " - Grafana: http://localhost:3000"
 echo ""
 echo "Default Grafana login: admin/admin"
-echo ""
-echo "Next steps:"
-echo "1. Log in to Grafana at http://localhost:3000"
-echo "2. Add Prometheus as a data source (URL: http://localhost:9090)"
-echo "3. Import Node Exporter dashboard (ID: 1860)"
-echo "-----------------------------------------------------------------------"
