@@ -37,10 +37,14 @@ jobs:
         id: init
         run: "packer init ./build/packer/golden-grafana/ubuntu-server-jammy.pkr.hcl"
 
-      - name: Run `packer validate`
-        id: validate
-        run: "packer validate -var-file=./build/packer/golden-grafana/variables.pkr.hcl ./build/packer/golden-grafana/variables.pkr.hcl"
+      - name: Validate build
+        run: |
+          echo "Validating packer build"
+          cd Chaos-labs/build/packer/golden-grafana
+          packer validate .
 
-      - name: run `packer build`
+      - name: Build image
         id: build
-        run: "packer build -var-file=./build/packer/golden-grafana/variables.pkr.hcl ./build/packer/golden-grafana/variables.pkr.hcl"
+        run: |
+          echo "Building packer image"
+          packer build .
