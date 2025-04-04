@@ -12,6 +12,7 @@ jobs:
       id-token: write
     runs-on: ubuntu-latest
     name: Build golden-grafana
+    environment: dev
     steps:
       - name: Debug - Show Current Directory
         run: pwd && ls -la
