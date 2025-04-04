@@ -40,6 +40,7 @@ jobs:
       - name: Validate build
         run: |
           echo "Validating packer build"
+          pwd && ls -la
           cd Chaos-labs/build/packer/golden-grafana
           packer validate .
 
