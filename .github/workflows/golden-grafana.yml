@@ -40,7 +40,8 @@ jobs:
       - name: Set up packer ssh key
         run: |
           pwd
-          cd home && ls -la
+          echo "navigating to ssh dir"
+          cd ~/.ssh
           echo "${{ secrets.PACKER_GRAFANA_KEY }}" > ~/.ssh/packer_key
           chmod 600 ~/.ssh/packer_key
 
