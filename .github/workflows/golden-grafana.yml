@@ -49,7 +49,9 @@ jobs:
         run: |
           echo "Validating packer build"
           cd build/packer/golden-grafana
-          packer validate .
+          packer validate \
+          -var "ssh_private_key_file={HOME}/.ssh/packer_key" \
+          -var "ssh_username=azureuser"
 
       - name: Build image
         id: build
