@@ -62,9 +62,6 @@ variable "ssh_username" {
   default = "azureuser" # Default user for Ubuntu images in Azure
 }
 
-variable "ssh_private_key_file" {
-  type    = string
-}
 
 variable "ssh_timeout" {
   type    = string
