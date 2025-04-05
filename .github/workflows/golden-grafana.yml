@@ -45,14 +45,11 @@ jobs:
           chmod 600 ~/.ssh/packer_key
           echo "Added ssh key and set permissions"
 
-      - name: Validate build
+      - name: Validate packer config
         run: |
           echo "Validating packer build"
           cd build/packer/golden-grafana
-          pwd && ls
-          packer validate . \
-          -var "ssh_private_key_file=${HOME}/.ssh/packer_key"
-          ubuntu-server-jammy.pkr.hcl
+          packer validate .
 
       - name: Build image
         id: build
@@ -61,5 +58,4 @@ jobs:
           cd build/packer/golden-grafana
           packer build \
           -var "ssh_private_key_file={HOME}/.ssh/packer_key" \
-          -var "ssh_username=azureuser" \
           ubuntu-server-jammy.pkr.hcl
