@@ -39,21 +39,22 @@ jobs:
 
       - name: Set up packer ssh key
         run: |
-          echo "Creating ssh directory"
+          echo "Creating ssh directory..."
           mkdir -p ~/.ssh
           echo "${{ secrets.PACKER_GRAFANA_KEY }}" > ~/.ssh/packer_key
           chmod 600 ~/.ssh/packer_key
+          echo "Added ssh key and set permissions"
 
       - name: Validate build
         run: |
           echo "Validating packer build"
-          pwd && ls -la
           cd build/packer/golden-grafana
           packer validate .
 
       - name: Build image
         id: build
         run: |
-          pwd && ls -la
           echo "Building packer image"
-          packer build .
+          packer build \
+          -var "ssh_private_key_file={HOME}/.ssh/packer_key" \
+          -var "ssh_username=azureuser"
