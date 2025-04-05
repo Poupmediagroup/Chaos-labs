@@ -57,4 +57,5 @@ jobs:
           echo "Building packer image"
           packer build \
           -var "ssh_private_key_file={HOME}/.ssh/packer_key" \
-          -var "ssh_username=azureuser"
+          -var "ssh_username=azureuser" \
+          ubuntu-server-jammy.pkr.hcl
