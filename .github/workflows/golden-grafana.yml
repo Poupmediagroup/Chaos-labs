@@ -39,9 +39,8 @@ jobs:
 
       - name: Set up packer ssh key
         run: |
-          pwd
-          echo "navigating to ssh dir"
-          cd ~/.ssh
+          echo "Creating ssh directory"
+          mkdir -p ~/.ssh
           echo "${{ secrets.PACKER_GRAFANA_KEY }}" > ~/.ssh/packer_key
           chmod 600 ~/.ssh/packer_key
 
