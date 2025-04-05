@@ -51,8 +51,7 @@ jobs:
           cd build/packer/golden-grafana
           pwd && ls
           packer validate \
-          -var "ssh_private_key_file=${HOME}/.ssh/packer_key" \
-          -var "ssh_username=azureuser"
+          -var "ssh_private_key_file=${HOME}/.ssh/packer_key"
           ubuntu-server-jammy.pkr.hcl
 
       - name: Build image
