@@ -40,7 +40,7 @@ jobs:
       - name: Set up packer ssh key
         run: |
 
-          echo "${{secrets.PACKER_GRAFANA_KEY}}" > ~/.ssh/packer_key
+          echo "${{ secrets.PACKER_GRAFANA_KEY }}" > ~/.ssh/packer_key
           chmod 600 ~/.ssh/packer_key
 
       - name: Validate build
