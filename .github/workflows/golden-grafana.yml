@@ -3,8 +3,8 @@ name: packer
 on:
   push:
     paths:
-    - '../../build/packer/golden-grafana/'
-    - '../../.github/'
+    - '../../build/packer/golden-grafana/**'
+    - '../../.github/**'
 
 env:
   PRODUCT_VERSION: "latest"
