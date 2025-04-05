@@ -57,5 +57,5 @@ jobs:
           echo "Building packer image"
           cd build/packer/golden-grafana
           packer build \
-          -var "ssh_private_key_file={HOME}/.ssh/packer_key" \
+          -var 'ssh_private_key_file={HOME}/.ssh/packer_key' \
           ubuntu-server-jammy.pkr.hcl
