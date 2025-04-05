@@ -37,6 +37,11 @@ jobs:
         id: init
         run: "packer init ./build/packer/golden-grafana/ubuntu-server-jammy.pkr.hcl"
 
+      - name: Set up packer ssh key
+        run: |
+          echo "{{secrets.PACKER_GRAFANA_KEY}}" > ~/.ssh/packer_key
+          chmod 600 ~/.ssh/packer_key
+
       - name: Validate build
         run: |
           echo "Validating packer build"

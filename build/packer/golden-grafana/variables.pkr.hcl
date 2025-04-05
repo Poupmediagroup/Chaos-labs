@@ -64,7 +64,6 @@ variable "ssh_username" {
 
 variable "ssh_private_key_file" {
   type    = string
-  default = "/Users/tai-dev/.ssh/packer_key" # Path to your private key
 }
 
 variable "ssh_timeout" {
