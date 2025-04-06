@@ -4,65 +4,52 @@ variable "subscription_id" {
 }
 
 variable "managed_image_name" {
-  type    = string
-  default = "golden-grafana"
+  type = string
 }
 
 variable "managed_image_resource_group_name" {
-  type    = string
-  default = "RG-Packer-images"
+  type = string
 }
 
 variable "os_type" {
-  type    = string
-  default = "Linux"
+  type = string
 }
 
 variable "image_publisher" {
-  type    = string
-  default = "Canonical"
+  type = string
 }
 
 variable "image_offer" {
-  type    = string
-  default = "0001-com-ubuntu-server-jammy"
+  type = string
 }
 
 variable "image_sku" {
-  type    = string
-  default = "22_04-lts"
+  type = string
 }
 
 variable "location" {
-  type    = string
-  default = "eastus"
+  type = string
 }
 
 variable "vm_size" {
-  type    = string
-  default = "Standard_DS2_v2"
+  type = string
 }
 variable "communicator" {
-  type    = string
-  default = "ssh"
+  type = string
 }
 
 variable "ssh_username" {
-  type    = string
-  default = "azureuser" # Default user for Ubuntu images in Azure
+  type = string
 }
 
 variable "ssh_private_key_file" {
-  type    = string
-  default = null
+  type = string
 }
 
 variable "ssh_timeout" {
-  type    = string
-  default = "10m"
+  type = string
 }
 
 variable "os_disk_size_gb" {
-  type    = number
-  default = 30
+  type = number
 }
