@@ -1,16 +1,6 @@
 variable "subscription_id" {
   type    = string
-  default = ""
-}
-
-variable "lab_name" {
-  type    = string
-  default = "Packer-lab"
-}
-
-variable "lab_resource_group" {
-  type    = string
-  default = "RG-Tai-lab"
+  default = null    # Fed in from pipeline
 }
 
 variable "managed_image_name" {
