@@ -1,6 +1,3 @@
-# Ignore Packer variables files containing sensitive information
-*.pkrvars.hcl
-
 # Local .terraform directories
 **/.terraform/*
 
