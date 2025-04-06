@@ -16,6 +16,10 @@ variable "managed_image_name" {
   type = string
 }
 
+variable "managed_image_resource_group_name" {
+  type = string
+}
+
 variable "os_type" {
   type = string
 }
@@ -65,19 +69,20 @@ variable "build_resource_group_name" {
 
 # Source: azure-arm builder
 source "azure-arm" "ubuntu-jammy" {
-  use_azure_cli_auth        = true
-  communicator              = "ssh"
-  location                  = var.location
-  image_publisher           = var.image_publisher
-  image_offer               = var.image_offer
-  image_sku                 = var.image_sku
-  vm_size                   = var.vm_size
-  os_disk_size_gb           = var.os_disk_size_gb
-  ssh_username              = var.ssh_username
-  ssh_private_key_file      = var.ssh_private_key_file
-  os_type                   = var.os_type
-  managed_image_name        = var.managed_image_name
-  build_resource_group_name = var.build_resource_group_name
+  use_azure_cli_auth                = true
+  communicator                      = "ssh"
+  location                          = var.location
+  image_publisher                   = var.image_publisher
+  image_offer                       = var.image_offer
+  image_sku                         = var.image_sku
+  vm_size                           = var.vm_size
+  os_disk_size_gb                   = var.os_disk_size_gb
+  ssh_username                      = var.ssh_username
+  ssh_private_key_file              = var.ssh_private_key_file
+  os_type                           = var.os_type
+  managed_image_name                = var.managed_image_name
+  build_resource_group_name         = var.build_resource_group_name
+  managed_image_resource_group_name = var.managed_image_resource_group_name
 }
 
 build {
