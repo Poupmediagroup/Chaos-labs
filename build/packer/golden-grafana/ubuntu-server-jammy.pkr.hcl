@@ -81,7 +81,6 @@ source "azure-arm" "ubuntu-jammy" {
   ssh_private_key_file              = var.ssh_private_key_file
   os_type                           = var.os_type
   managed_image_name                = var.managed_image_name
-  build_resource_group_name         = var.build_resource_group_name
   managed_image_resource_group_name = var.managed_image_resource_group_name
 }
 

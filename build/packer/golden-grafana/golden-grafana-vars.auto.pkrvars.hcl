@@ -1,6 +1,5 @@
 subscription_id                   = null # Will be injected securely from GitHub Secrets
 managed_image_name                = "golden-grafana"
-build_resource_group_name         = "RG-Packer-images"
 os_type                           = "Linux"
 image_publisher                   = "Canonical"
 image_offer                       = "0001-com-ubuntu-server-jammy"
