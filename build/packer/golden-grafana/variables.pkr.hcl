@@ -1,6 +1,5 @@
 variable "subscription_id" {
   type    = string
-  default = null    # Fed in from pipeline
 }
 
 variable "managed_image_name" {
@@ -54,7 +53,7 @@ variable "ssh_username" {
 
 variable "ssh_private_key_file" {
   type    = string
-  default = null # This will be overwritten by actual secret in github
+  default = "packer_key"
 }
 
 variable "ssh_timeout" {
