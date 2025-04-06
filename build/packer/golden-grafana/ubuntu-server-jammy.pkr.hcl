@@ -63,10 +63,6 @@ variable "os_disk_size_gb" {
   type = number
 }
 
-variable "build_resource_group_name" {
-  type = string
-}
-
 # Source: azure-arm builder
 source "azure-arm" "ubuntu-jammy" {
   use_azure_cli_auth                = true
