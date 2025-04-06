@@ -1,5 +1,6 @@
 variable "subscription_id" {
   type    = string
+  default = null
 }
 
 variable "managed_image_name" {
