@@ -58,10 +58,9 @@ jobs:
         run: |
           echo "Building packer image"
           cd build/packer/golden-grafana
-          echo "debug for key location:"
-          ls -la $HOME/.ssh
+          echo "debug working directory:"
+          ls -la
           packer build \
             -var='ssh_private_key_file=${HOME}/.ssh/packer_key' \
             -var='subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}' \
-            -var-file=variables.pkr.hcl \
             ubuntu-server-jammy.pkr.hcl
