@@ -64,7 +64,6 @@ variable "ssh_username" {
 
 variable "ssh_private_key_file" {
   type    = string
-  default = ""
 }
 
 variable "ssh_timeout" {
