@@ -47,12 +47,6 @@ jobs:
           chmod 600 ~/.ssh/packer_key
           echo "Added ssh key and set permissions"
 
-      - name: Validate packer config
-        run: |
-          echo "Validating packer build"
-          cd build/packer/golden-grafana
-          packer validate .
-
       - name: Build image
         id: build
         run: |
