@@ -42,11 +42,7 @@ build {
       "sudo apt-get update",
       "sudo apt-get upgrade -y",
       "echo 'Cloning repo'",
-      "git clone https://github.com/Poupmediagroup/Chaos-labs.git",
-      "cd Chaos-labs/build/scripts/",
-      "echo 'executing grafana dashboard setup script'",
-      "chmod +x ./grafana-setup.py",
-      "./grafana-setup.py"
+      "git clone https://github.com/Poupmediagroup/Chaos-labs.git"
     ]
   }
 
