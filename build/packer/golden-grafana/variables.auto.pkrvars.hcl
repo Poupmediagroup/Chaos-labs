@@ -1,0 +1,14 @@
+subscription_id                    = null # Will be injected securely from GitHub Secrets
+managed_image_name                 = "golden-grafana"
+managed_image_resource_group_name = "RG-Packer-images"
+os_type                            = "Linux"
+image_publisher                    = "Canonical"
+image_offer                        = "0001-com-ubuntu-server-jammy"
+image_sku                          = "22_04-lts"
+location                           = "eastus"
+vm_size                            = "Standard_DS2_v2"
+communicator                       = "ssh"
+ssh_username                       = "azureuser"
+ssh_private_key_file               = null # Will be injected securely from GitHub Secrets
+ssh_timeout                        = "10m"
+os_disk_size_gb                    = 30
