@@ -16,10 +16,6 @@ variable "managed_image_name" {
   type = string
 }
 
-variable "managed_image_resource_group_name" {
-  type = string
-}
-
 variable "os_type" {
   type = string
 }
