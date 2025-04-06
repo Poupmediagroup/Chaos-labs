@@ -58,8 +58,8 @@ jobs:
         run: |
           echo "Building packer image"
           cd build/packer/golden-grafana
-          echo "listing contents for debug:"
-          pwd && ls -la
+          echo "debug for key location:"
+          ls -la $HOME/.ssh
           packer build \
             -var 'ssh_private_key_file=${HOME}/.ssh/packer_key' \
             ubuntu-server-jammy.pkr.hcl
