@@ -64,7 +64,7 @@ variable "ssh_username" {
 
 variable "ssh_private_key_file" {
   type    = string
-  default = null
+  default = "overwrite" # This will be overwritten by actual secret in github
 }
 
 variable "ssh_timeout" {
