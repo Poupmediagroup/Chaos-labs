@@ -43,7 +43,7 @@ jobs:
         run: |
           echo "Creating ssh directory..."
           mkdir -p ~/.ssh
-          echo "${{ secrets.PACKER_GRAFANA_KEY }}" > ~/.ssh/packer_key
+          echo "${{ secrets.PACKER_GRAFANA_KEY }}" > $HOME/.ssh/packer_key
           chmod 600 ~/.ssh/packer_key
           echo "Added ssh key and set permissions"
 
@@ -61,6 +61,6 @@ jobs:
           echo "debug working directory:"
           ls -la
           packer build \
-            -var='ssh_private_key_file=${HOME}/.ssh/packer_key' \
-            -var='subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}' \
+            -var="ssh_private_key_file=${HOME}/.ssh/packer_key" \
+            -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" \
             ubuntu-server-jammy.pkr.hcl
